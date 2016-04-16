@@ -16,6 +16,7 @@ pokemon.Mew = function() {
 
 goog.inherits(pokemon.Mew,lime.Sprite);
 
+//causes Mew to start moving in the user-specified direction
 pokemon.Mew.prototype.startMovement = function(direction) {
   this.isMoving = true;
   this.direction = direction;

@@ -32,7 +32,7 @@ pokemon.start = function(){
     //renderer can either be DOM or canvas
     //this.gameScene.setRenderer(this.lime.Renderer.CANVAS);
 
-    //SPRITES / GAME OBJECTS
+    //SPRITES | GAME OBJECTS
     //set main game objects
     var gameBackground = new this.lime.Sprite()
                     .setSize(1080, 780)     //set size method
@@ -56,20 +56,24 @@ pokemon.start = function(){
     var buttonLeft = new this.lime.Sprite().setSize(115,114).setPosition(1151,518).setAnchorPoint(0,0);
 
     // add events to four buttons
+    // if buttonUp Sprite is pressed, move North
       goog.events.listen(buttonUp,["mousedown","touchstart"],function(e) {
         this.startMovement(NORTH);
       }, null, this.mew);
+    // if buttonRight Sprite is pressed, move East
       goog.events.listen(buttonRight,["mousedown","touchstart"],function(e) {
         this.startMovement(EAST);
       }, null, this.mew);
+    // if buttonDown Sprite is pressed, move South
       goog.events.listen(buttonDown,["mousedown","touchstart"],function(e) {
         this.startMovement(SOUTH);
       }, null, this.mew);
+    // if buttonLeft Sprite is pressed, move West
       goog.events.listen(buttonLeft,["mousedown","touchstart"],function(e) {
         this.startMovement(WEST);
       }, null, this.mew);
 
-  // add one task to the schedule manager: check if the frog is moving
+  // add one task to the schedule manager: check if Mew is moving (dt == delta time: determines how much time has elapsed since the last time this method was called)
       this.lime.scheduleManager.schedule(function(dt) {
           this.checkVictory();
           this.checkMovement(dt);
@@ -184,6 +188,7 @@ pokemon.checkMovement = function(dt) {
         futureX = futureX - this.mew.speed*dt;
         break;
     }
+
     // check if future position hits an obstacle
     // stop movement and return false if so
     futureTopY = futureY - (this.mew.getSize().height/2);
@@ -203,10 +208,10 @@ pokemon.checkMovement = function(dt) {
       }
     }
 
-    // if no obstacles are hit, move the frog
+    // if no obstacles are hit, move Mew
     this.mew.setPosition(futureX,futureY);
 
-    // check if new position hits a badge
+    // check if new position hits a pokeball
     for(i in this.pokeballs) {
       pokeball = this.pokeballs[i];
       pokeballTopY = pokeball.getPosition().y-(pokeball.getSize().height/2);
